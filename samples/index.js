@@ -64,4 +64,4 @@ setInterval(() => {
 
   // eslint-disable-next-line react/no-deprecated
   OwnReact.render(List, root);
-}, 1000);
+}, 5000);
