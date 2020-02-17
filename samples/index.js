@@ -1,10 +1,7 @@
 import OwnReact from "../src";
-import Alphabet from "../src/components/alphabet";
 import mixArray from "../src/utils/mix-array";
 
 const root = document.getElementById("root");
-
-// eslint-disable-next-line react/no-deprecated
 
 let alphabet = [
   "а",
@@ -42,12 +39,29 @@ let alphabet = [
   "я"
 ];
 
-// eslint-disable-next-line
-OwnReact.render(<Alphabet alphabet={alphabet} />, root);
+let List = (
+  <div>
+    {alphabet.map(word => (
+      <div>{word}</div>
+    ))}
+  </div>
+);
+
+// eslint-disable-next-line react/no-deprecated
+OwnReact.render(List, root);
 
 setInterval(() => {
   alphabet = mixArray(alphabet);
 
-  // eslint-disable-next-line
-  OwnReact.render(<Alphabet alphabet={alphabet} />, root);
-}, 5000);
+  // почему-то значение alphabet кешируется и в render попадают старые данные
+  List = (
+    <div>
+      {alphabet.map(word => (
+        <div>{word}</div>
+      ))}
+    </div>
+  );
+
+  // eslint-disable-next-line react/no-deprecated
+  OwnReact.render(List, root);
+}, 1000);
