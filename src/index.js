@@ -14,6 +14,7 @@ class OwnReact {
     };
 
     if (children.length) {
+      // const copyChildren = [...children]; почему-то не работает через spread
       const copyChildren = [].concat(...children);
       newElement.props.children = (newElement.props.children || []).concat(
         parseChildren(copyChildren)
