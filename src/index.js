@@ -1,4 +1,4 @@
-import parseChildren from "./utils/parse-children";
+import parseChildren from "./parse-children";
 import reconcile from "./reconcile";
 
 let rootInstance = null;
@@ -6,22 +6,18 @@ let rootInstance = null;
 class OwnReact {
   /** @jsx createElement */
   static createElement(type, props, ...children) {
-    const newElement = {
-      type,
-      props: {
-        ...props
-      }
-    };
+    const resultProps = { ...props };
 
     if (children.length) {
-      // const copyChildren = [...children]; почему-то не работает через spread
-      const copyChildren = [].concat(...children);
-      newElement.props.children = (newElement.props.children || []).concat(
-        parseChildren(copyChildren)
+      resultProps.children = ((props && props.children) || []).concat(
+        parseChildren(children)
       );
     }
 
-    return newElement;
+    return {
+      type,
+      props: resultProps
+    };
   }
 
   static render(element, container) {

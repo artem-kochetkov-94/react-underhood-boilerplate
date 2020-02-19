@@ -1,5 +1,7 @@
 import instantiate from "./instantiate";
 import updateDomProperties from "./update-dom-properties";
+// eslint-disable-next-line import/no-cycle
+import reconcileChildren from "./reconcile-children";
 
 export default function reconcile(parentDom, instance, element) {
   if (instance === null) {
@@ -28,26 +30,9 @@ export default function reconcile(parentDom, instance, element) {
 
   // Обновляем инстанс DOM-элемента
   updateDomProperties(instance.dom, instance.element.props, element.props);
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-param-reassign, no-use-before-define
   instance.childInstances = reconcileChildren(instance, element);
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-param-reassign
   instance.element = element;
   return instance;
-}
-
-function reconcileChildren(instance, element) {
-  const { dom } = instance;
-  const { childInstances } = instance;
-  const nextChildElements = element.props.children || [];
-  const newChildInstances = [];
-  const count = Math.max(childInstances.length, nextChildElements.length);
-
-  for (let i = 0; i < count; i += 1) {
-    const childInstance = childInstances[i];
-    const childElement = nextChildElements[i];
-    const newChildInstance = reconcile(dom, childInstance, childElement);
-    newChildInstances.push(newChildInstance);
-  }
-
-  return newChildInstances.filter(childInstance => childInstance !== null);
 }

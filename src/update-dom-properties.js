@@ -1,7 +1,7 @@
-export default function updateDomProperties(dom, prevProps, nextProps) {
-  const isEvent = name => name.startsWith("on");
-  const isAttribute = name => !isEvent(name) && name !== "children";
+import isEvent from "./utils/is-event";
+import isAttribute from "./utils/is-attribute";
 
+export default function updateDomProperties(dom, prevProps, nextProps) {
   // Удаляем прослушку событий
   Object.keys(prevProps)
     .filter(isEvent)
@@ -14,7 +14,7 @@ export default function updateDomProperties(dom, prevProps, nextProps) {
   Object.keys(prevProps)
     .filter(isAttribute)
     .forEach(name => {
-      // eslint-disable-next-line
+      // eslint-disable-next-line no-param-reassign
       dom[name] = null;
     });
 
@@ -22,7 +22,7 @@ export default function updateDomProperties(dom, prevProps, nextProps) {
   Object.keys(nextProps)
     .filter(isAttribute)
     .forEach(name => {
-      // eslint-disable-next-line
+      // eslint-disable-next-line no-param-reassign
       dom[name] = nextProps[name];
     });
 
