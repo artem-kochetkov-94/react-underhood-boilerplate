@@ -1,7 +1,7 @@
 import getRandomInteger from "./get-random-integer";
 
-export default function mixString(text) {
-  const arrayCopy = text.split("");
+export default function mixArray(arr) {
+  const arrayCopy = arr.slice();
 
   for (let i = 0; i < 5; i += 1) {
     const prevPosition = getRandomInteger(0, arrayCopy.length - 1);
@@ -20,5 +20,5 @@ export default function mixString(text) {
     } while (prevPosition === nextPosition);
   }
 
-  return arrayCopy.join("");
+  return arrayCopy;
 }
