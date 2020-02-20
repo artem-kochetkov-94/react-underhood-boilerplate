@@ -24,14 +24,27 @@ export default function reconcile(parentDom, instance, element) {
     return newInstance;
   }
 
-  /**
-   * Здесь в дальнейшем будет проверка на получение компонента
-   */
+  if (typeof element.type === "string") {
+    // Обновляем инстанс DOM-элемента
+    updateDomProperties(instance.dom, instance.element.props, element.props);
+    // eslint-disable-next-line no-param-reassign, no-use-before-define
+    instance.childInstances = reconcileChildren(instance, element);
+    // eslint-disable-next-line no-param-reassign
+    instance.element = element;
+    return instance;
+  }
 
-  // Обновляем инстанс DOM-элемента
-  updateDomProperties(instance.dom, instance.element.props, element.props);
-  // eslint-disable-next-line no-param-reassign, no-use-before-define
-  instance.childInstances = reconcileChildren(instance, element);
+  // Обновляем инстанс компонента
+  // eslint-disable-next-line no-param-reassign
+  instance.publicInstance.props = element.props;
+  const childElement = instance.publicInstance.render();
+  const oldChildInstance = instance.childInstance;
+  // eslint-disable-next-line no-param-reassign
+  const childInstance = reconcile(parentDom, oldChildInstance, childElement);
+  // eslint-disable-next-line no-param-reassign
+  instance.dom = childInstance.dom;
+  // eslint-disable-next-line no-param-reassign
+  instance.childInstance = childInstance;
   // eslint-disable-next-line no-param-reassign
   instance.element = element;
   return instance;

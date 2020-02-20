@@ -6,6 +6,21 @@ let rootInstance = null;
 class OwnReact {
   /** @jsx createElement */
   static createElement(type, props, ...children) {
+    if (typeof type === "function") {
+      if (!type.isClass) {
+        const componentProps = {
+          ...props,
+          children: ((props && props.children) || []).concat(
+            parseChildren(children)
+          )
+        };
+
+        // eslint-disable-next-line new-cap
+        const component = new type(componentProps);
+        return component;
+      }
+    }
+
     const resultProps = { ...props };
 
     if (children.length) {
