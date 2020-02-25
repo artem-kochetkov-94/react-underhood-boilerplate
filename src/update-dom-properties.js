@@ -1,5 +1,5 @@
-import isEvent from "./utils/is-event";
-import isAttribute from "./utils/is-attribute";
+const isEvent = name => name.startsWith("on");
+const isAttribute = name => !isEvent(name) && name !== "children";
 
 export default function updateDomProperties(dom, prevProps, nextProps) {
   // Удаляем прослушку событий
