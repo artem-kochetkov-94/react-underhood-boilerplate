@@ -1,9 +1,12 @@
-import mixArrayByText from "../src/utils/mix-array-by-text";
+import mixArrayByAnotherArray from "../src/utils/mix-array-by-text";
+import getUniqueArray from "../src/utils/get-unique-array";
 
 test("mix correct works", () => {
-  const text = "габ";
+  const text = "г а б";
+  const uniqueLetters = getUniqueArray(text.replace(/\s+/g,'').split(""));
+
   const array = "абвгдеёж".split("");
-  const mixedArray = mixArrayByText(array, text);
+  const mixedArray = mixArrayByAnotherArray(array, uniqueLetters);
 
   expect(mixedArray).toEqual(["г", "а", "в", "б", "д", "е", "ё", "ж"]);
 });
