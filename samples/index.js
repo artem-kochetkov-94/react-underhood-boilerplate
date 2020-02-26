@@ -1,5 +1,5 @@
 import OwnReact from "../src";
-import ChangingList from "../src/components/Changing-list";
+import ChangingList from "../src/components/ChangingList";
 
 const root = document.getElementById("root");
 

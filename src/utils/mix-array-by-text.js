@@ -1,19 +1,20 @@
-import getUniqueArray from "./get-unique-array";
-
-export default function mixArrayByText(array, text) {
+export default function mixArrayByText(array, comparedArray) {
   const copyArray = array.slice();
-  const lettersUnique = getUniqueArray(text.split(""));
-  const indexes = [];
+  const arrayIndexes = [];
+  const letterIndexes = [];
 
-  lettersUnique.forEach(item => {
+  comparedArray.forEach(item => {
     const indexLetter = copyArray.indexOf(item);
-    indexes.push(indexLetter);
+    if (indexLetter > -1) {
+      arrayIndexes.push(indexLetter);
+      letterIndexes.push(item);
+    }
   });
 
-  indexes.sort((a, b) => a - b);
+  arrayIndexes.sort((a, b) => a - b);
 
-  indexes.forEach((indexLetter, index) => {
-    copyArray[indexLetter] = lettersUnique[index];
+  arrayIndexes.forEach((indexLetter, index) => {
+    copyArray[indexLetter] = letterIndexes[index];
   });
 
   return copyArray;

@@ -1,5 +1,5 @@
 import OwnReact from "../";
-import ListItem from "./List-item";
+import ListItem from "./ListItem";
 
 export default function List({ items }) {
   return (

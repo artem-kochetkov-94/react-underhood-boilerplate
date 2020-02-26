@@ -9,7 +9,7 @@ export default function reconcile(parentDom, instance, element) {
     return newInstance;
   }
 
-  if (element === null) {
+  if (element === undefined) {
     // Убираем инстанс
     parentDom.removeChild(instance.dom);
     return null;
