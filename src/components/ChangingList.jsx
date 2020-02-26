@@ -2,7 +2,7 @@ import OwnReact from "../";
 import Component from "../Component";
 import List from "./List";
 import mixArray from "../utils/mix-array";
-import mixArrayByText from "../utils/mix-array-by-text";
+import mixArrayByAnotherArray from "../utils/mix-array-by-another-array";
 import getUniqueArray from "../utils/get-unique-array";
 
 export default class ChangingList extends Component {
@@ -38,7 +38,9 @@ export default class ChangingList extends Component {
   }
 
   deleteFirstItem = () => {
-    this.state.items.slice(1)
+    this.setState({
+      items: this.state.items.slice(1)
+    })
   }
 
   handleInput = e => {
@@ -47,7 +49,7 @@ export default class ChangingList extends Component {
 
     this.setState({
       value,
-      items: mixArrayByText(this.state.items, uniqueLetters)
+      items: mixArrayByAnotherArray(this.state.items, uniqueLetters)
     });
   }
 
